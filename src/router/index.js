@@ -8,6 +8,7 @@ import StatisticsComponent from '../views/Statistics'
 import constructionSitesComponent from '../views/ConstructionSites'
 import DeliveryAreasComponent from '../views/DeliveryAreas'
 import MaterialsComponent from '../views/Materials'
+import NewconstructionSitesComponent from '../components/ConstructionSites/CreateConstructionSite'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/constructionsites',
     name: 'Constructionsites',
     component: constructionSitesComponent
+  },
+  {
+    path: '/constructionsites/new',
+    name: 'CreateConstructionsites',
+    component: NewconstructionSitesComponent
   },
   {
     path: '/materials',

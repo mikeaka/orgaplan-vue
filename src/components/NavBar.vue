@@ -32,7 +32,7 @@
           {{ item.title }}
         </v-btn>
       </v-toolbar-items>
-      <v-menu offset-y>
+      <v-menu offset-y v-if="AdminUser">
         <template v-slot:activator="{ on }">
           <v-btn dark v-on="on" text>
             <v-icon left>arrow_drop_down</v-icon>Admin
@@ -52,6 +52,7 @@
 export default {
   data: () => ({
     sideNav: false,
+    AdminUser: true,
     menuItems: [
       { icon: 'event_note', title: 'Planning', link: '/Schedules' },
       { icon: 'history', title: 'Historique', link: '/History' },
