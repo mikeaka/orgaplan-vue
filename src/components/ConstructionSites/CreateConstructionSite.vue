@@ -46,7 +46,7 @@
           <v-row>
             <v-col>
               <v-autocomplete
-                :items="deliveryAreas"
+                :items="filteredActiveDeliveryArea"
                 label="Ajouter les aires de livraison"
                 item-text="name"
                 item-value="name"
@@ -68,7 +68,7 @@
           <v-row>
             <v-col>
               <v-autocomplete
-                :items="siteMaterials"
+                :items="filteredActiveSiteMaterial"
                 label="Ajouter les moyens pour le chantier"
                 item-text="name"
                 item-value="name"
@@ -92,13 +92,67 @@
       <v-btn color="primary" @click="e7 = 3">Continuer</v-btn>
       <v-btn text>Cancel</v-btn>
     </v-stepper-content>
+
+    <v-stepper-step :complete="e7 > 3" step="3">Affectuer des entreprises</v-stepper-step>
+
+    <v-stepper-content step="3">
+      <v-card color="grey lighten-1" class="mb-12" height="200px">
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-autocomplete
+                :items="filteredActiveCompagny"
+                label="Ajouter les entreprises abilitees a faire des reservation"
+                item-text="name"
+                item-value="name"
+                multiple
+                required
+              >
+                <template v-slot:selection="data">
+                  <template v-if="typeof data.item !== 'object'">
+                    <v-list-item-content v-text="data.item"></v-list-item-content>
+                  </template>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                  </v-list-item-content>
+                </template>
+              </v-autocomplete>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-autocomplete
+                :items="filteredActiveProvider"
+                label="Ajouter les fournisseurs du chantier"
+                item-text="name"
+                item-value="name"
+                multiple
+                required
+              >
+                <template v-slot:selection="data">
+                  <template v-if="typeof data.item !== 'object'">
+                    <v-list-item-content v-text="data.item"></v-list-item-content>
+                  </template>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                  </v-list-item-content>
+                </template>
+              </v-autocomplete>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+      <v-btn color="primary" class="ma-2" outlined @click="e7 = 3">Retour</v-btn>
+      <v-btn color="primary" @click="e7 = 4">Terminee</v-btn>
+      <v-btn text>Cancel</v-btn>
+    </v-stepper-content>
   </v-stepper>
 </template>
 
 <script>
 export default {
   name: 'CreateConstructionSites',
-
   data: () => ({
     e7: 1,
     siteMaterials: [
@@ -123,6 +177,32 @@ export default {
       { id: 'cmzwernzc', name: 'BTP', active: true }
     ]
   }),
+  computed: {
+    //search if DeliveryAreas are enable or not
+    filteredActiveDeliveryArea: function() {
+      return this.deliveryAreas.filter(deliveryArea => {
+        return deliveryArea.active.valueOf(true)
+      })
+    },
+    //search if siteMaterial are enable or not
+    filteredActiveSiteMaterial: function() {
+      return this.siteMaterials.filter(siteMaterial => {
+        return siteMaterial.active.valueOf(true)
+      })
+    },
+    //search if compagny are enable or not
+    filteredActiveCompagny: function() {
+      return this.compagny.filter(compagny => {
+        return compagny.active.valueOf(true)
+      })
+    },
+    //search if compagny are enable or not
+    filteredActiveProvider: function() {
+      return this.providers.filter(provider => {
+        return provider.active.valueOf(true)
+      })
+    }
+  },
   methods: {}
 }
 </script>

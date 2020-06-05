@@ -20,7 +20,12 @@
         </v-flex>
         <v-flex xs6 sm4 md2>
           <div class="caption grey--text">Status du projet</div>
-          <div>{{ chantier.status }}</div>
+          <div class="right">
+            <v-chip
+              small
+              :class="`white--text caption my-2 chantier ${chantier.status} `"
+            >{{ chantier.status }}</v-chip>
+          </div>
         </v-flex>
         <v-flex>
           <div class="caption grey--text">Actions</div>
@@ -107,7 +112,7 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
 .chantier.terminee {
   border-left: 4px solid #3cd1c2;
 }
@@ -116,5 +121,14 @@ export default {
 }
 .chantier.depassement {
   border-left: 4px solid tomato;
+}
+.v-chip.terminee {
+  background: #3cd1c2;
+}
+.v-chip.en-cours {
+  background: orange;
+}
+.v-chip.depassement {
+  background: tomato;
 }
 </style>
